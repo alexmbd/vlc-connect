@@ -22,7 +22,9 @@ class VLCPlayer:
 
             self.vlc_player.set_fullscreen(True)
             video = self.vlc_playlist[media_key]["video"]
-            audio = self.vlc_playlist[media_key]["audio"]
+            # audio url string needs to be encoded to work
+            # with vlc both on Windows and Linux
+            audio = self.vlc_playlist[media_key]["audio"].encode()
 
             self._set_new_media(video, audio)
 
