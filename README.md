@@ -18,14 +18,14 @@ Control VLC with a custom Web UI. Play audio and video from the internet or from
 	```
 
 ## Usage
-#### For http://localhost:5000 or http://127.0.0.1:5000
+### For http://localhost:5000 or http://127.0.0.1:5000
 1. In the folder containing **app.py**, open a terminal then type `flask run`
 2. Open a web browser and enter http://localhost:5000 or http://127.0.0.1:5000
 3. It will redirect you to the home page of the application and it is ready to use
 
 *Note: You can only access the site (http://localhost:5000 or http://127.0.0.1:5000) from the same machine. In other words, other devices cannot connect to the specified link. Use the method below to setup a server that any device connected to the same network can access.*
 
-#### For http://LOCAL_IP:PORT
+### For http://LOCAL_IP:PORT
 1. In the folder containing **app.py**, open a terminal then type `flask run -h [LOCAL_IP] -p [PORT]`
 2. Open a web browser and enter http://LOCAL_IP:PORT
 3. It will redirect you to the home page of the application and it is ready to use
