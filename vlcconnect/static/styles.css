@@ -1,0 +1,155 @@
+html, body, .page {
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+  background-color: #121212;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page_header {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.page_content {
+  flex: 1 1 auto;
+  position: relative;
+  overflow-y: auto;
+}
+
+.page_footer {
+  flex: 0 0 auto;
+  padding: 30px;
+}
+
+h1 {
+  color: #ddd;
+  font: 20px Arial;
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.div_search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.form_search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 36px;
+  width: 240px;
+  border: 1px solid;
+  border-radius: 16px;
+  border-color: #ccc;
+  background-color: #323232;
+}
+
+input {
+  all: unset;
+  font: 18px Arial;
+  color: #fff;
+  height: 100%;
+  width: 100%;
+  padding: 6px 10px;
+}
+
+::placeholder {
+  color: #fff;
+  opacity: 0.7; 
+}
+
+select {
+  border: 1px solid;
+  border-radius: 8px;
+  border-color: #ccc;
+  color: #ddd;
+  background-color: #434343;
+}
+
+.button_search {
+  all: unset;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+}
+
+svg {
+  color: #777;
+  fill: currentColor;
+  width: 24px;
+  height: 24px;
+  padding: 10px;
+}
+
+.main_content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.button_content {
+  border: none;
+  color: #ddd;
+  background-color: transparent;
+  font: 18px Arial;
+  font-weight: bold;
+}
+
+.img_title {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  min-width: 220px;
+  max-width: 360px;
+  max-height: 200px;
+}
+
+@media screen and (min-width: 400px) {
+  .form_search {
+    width: 360px;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .page_header {
+    flex-direction: row;
+  }
+  .form_search {
+    width: 380px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .form_search {
+    width: 548px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .form_search {
+    width: 772px;
+  }
+}

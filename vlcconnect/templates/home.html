@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <div class="page_header">
+        <div>
+            <h1>VLC Connect</h1>
+        </div>
+        <div class="div_search">
+            <form method="post" class="form_search">
+              <input
+               placeholder="Enter youtube url..."
+               aria-label="Search through site content"
+               name="query">
+              <select name="vid_quality">
+                {% for quality in qualities %}
+                    {% if quality == "360" %}
+                        <option value="360" selected>360</option>
+                    {% else %}
+                        <option value="{{quality}}">{{quality}}</option>
+                    {% endif %}
+                {% endfor %}
+              </select>
+              <button type="search" class="button_search">
+                <svg viewBox="0 0 1024 1024">
+                    <path class="path1" d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z">
+                    </path>
+                </svg>
+              </button>
+            </form>
+        </div>
+    </div>
+    <div class="page_content">
+        <form method="post" class="main_content">
+            {% for key, value in playlist.items() %}
+                <div class="img_title">
+                    <button type="submit" name="playlist_button" value="{{key}}" class="button_content">
+                        <img src="{{value['thumbnail']}}" width="360" height="200">
+                    </button>
+                    <button type="submit" name="playlist_button" value="{{key}}" class="button_content">
+                        {{value["title"]}}
+                    </button>
+                </div>
+            {% endfor %}
+        </form>
+    </div>
+    <div class="page_footer">
+        <form method="post">
+            {% if is_playing %}
+                <button type="submit" name="control_button" value="pause">Pause</button>
+            {% else %}
+                <button type="submit" name="control_button" value="play">Play</button>
+            {% endif %}
+            <button type="submit" name="control_button" value="stop">Stop</button>
+        </form>
+    </div>
+{% endblock %}
