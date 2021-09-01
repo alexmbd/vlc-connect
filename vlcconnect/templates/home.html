@@ -51,6 +51,36 @@
             <div class="seek_tooltip" id="seek_tooltip">00:00</div>
         </div>
 
+        <div class="bottom_controls">
+            <div class="center_controls">
+                <button data-title="Play" id="play">
+                    <svg class="playback_icons">
+                        <use href="#play_icon"></use>
+                        <use class="hidden" href="#pause"></use>
+                    </svg>
+                </button>
+  
+                <div class="volume_controls">
+                    <button data-title="Mute" class="volume_button" id="volume_button">
+                        <svg>
+                            <use class="hidden" href="#volume_mute"></use>
+                            <use class="hidden" href="#volume_low"></use>
+                            <use href="#volume_high"></use>
+                        </svg>
+                    </button>
+
+                    <input class="volume" id="volume" value="1"
+                    data-mute="0.5" type="range" max="1" min="0" step="0.01">
+                </div>
+
+                <div class="time">
+                    <time id="time_elapsed">00:00</time>
+                        <span> / </span>
+                    <time id="duration">00:00</time>
+                </div>
+            </div>
+        </div>
+
         <svg style="display: none">
             <defs>
                 <symbol id="pause" viewBox="0 0 24 24">
