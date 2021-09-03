@@ -1,33 +1,44 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, url_for
 from .ytVLC import VLCPlayer, get_url_info
 
 views = Blueprint("views", __name__)
 
 vlc_player = VLCPlayer()
 
+media_sources = ["YouTube", "Local"]
+qualities = ["144", "240", "360", "480", "720", "1080"]
+
 @views.route("/", methods=["GET", "POST"])
 def home():
-    qualities = ["144", "240", "360", "480", "720", "1080"]
     playlist = vlc_player.vlc_playlist
 
     if request.method == "POST":
-        link = request.form.get("query")
-        control = request.form.get("control_button")
-        playlist_req = request.form.get("playlist_button")
+        home = request.form.get("to_home")
+        query = request.form.get("query")
+        # control = request.form.get("control_button")
+        # playlist_req = request.form.get("playlist_button")
 
-        if link:
-            selected_quality = request.form.get("vid_quality")
-            media_handler(link, selected_quality)
-        elif control:
-            control_handler(control)
-        elif playlist_req:
-            playlist_handler(playlist_req)
+        if home:
+            return render_template("home.html", media_sources=media_sources, qualities=qualities, playlist=playlist)
+        elif query:
+            return redirect(url_for("views.results", query=query))
+        #     selected_quality = request.form.get("vid_quality")
+        #     media_handler(link, selected_quality)
+        # elif control:
+        #     control_handler(control)
+        # elif playlist_req:
+        #     playlist_handler(playlist_req)
 
-        is_playing = vlc_player.is_playing
+        # is_playing = vlc_player.is_playing
 
-        return render_template("home.html", qualities=qualities, is_playing=is_playing, playlist=playlist)
+        # return render_template("home.html", qualities=qualities, is_playing=is_playing, playlist=playlist)
     else:
-        return render_template("home.html", qualities=qualities, playlist=playlist)
+        return render_template("home.html", media_sources=media_sources, qualities=qualities, playlist=playlist)
+
+@views.route("/<query>", methods=["GET", "POST"])
+def results(query: str):
+    return render_template("results.html", media_sources=media_sources)
+
 
 def media_handler(url: str, quality: str) -> None:
     url_info = get_url_info(url, quality)

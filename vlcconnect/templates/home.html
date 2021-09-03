@@ -2,50 +2,45 @@
 
 
 {% block content %}
-    <div class="page_header">
+    <div class="search_bar">
         <div>
-            <h1>VLC Connect</h1>
+            <form method="post">
+                <button type="submit" name="to_home" value="home" class="home_button">VLC Connect</button>
+            </form>
         </div>
-        <div class="div_search">
-            <form method="post" class="form_search">
-              <input
-               placeholder="Enter youtube url..."
-               aria-label="Search through site content"
-               name="query">
-              <select name="vid_quality">
-                {% for quality in qualities %}
-                    {% if quality == "360" %}
-                        <option value="360" selected>360</option>
-                    {% else %}
-                        <option value="{{quality}}">{{quality}}</option>
-                    {% endif %}
-                {% endfor %}
-              </select>
-              <button type="search" class="button_search">
-                <svg viewBox="0 0 1024 1024">
-                    <path class="path1" d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z">
-                    </path>
-                </svg>
-              </button>
+        <div class="search_outer">
+            <form method="post" class="search_form">
+                <button type="search" class="search_button">
+                    <svg viewBox="0 0 1024 1024">
+                        <path d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"></path>
+                    </svg>
+                </button>
+                <input
+                placeholder="Search"
+                aria-label="Search through site content"
+                name="query">
+            </form>
+        </div>
+        <div>
+            <form method="post">
+                <select name="media_source">
+                    {% for source in media_sources %}
+                        {% if source == "YouTube" %}
+                            <option value="YouTube" selected>YouTube</option>
+                        {% else %}
+                            <option value="{{source}}">{{source}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
             </form>
         </div>
     </div>
+    <hr class="column_separator">
     <div class="page_content">
-        <form method="post" class="main_content">
-            {% for key, value in playlist.items() %}
-                <div class="img_title">
-                    <button type="submit" name="playlist_button" value="{{key}}" class="button_content">
-                        <img src="{{value['thumbnail']}}" width="360" height="200">
-                    </button>
-                    <button type="submit" name="playlist_button" value="{{key}}" class="button_content">
-                        {{value["title"]}}
-                    </button>
-                </div>
-            {% endfor %}
-        </form>
+        
     </div>
     <div class="page_footer">
-        <div class="video_progress">
+        <!-- <div class="video_progress">
             <progress id="progress_bar" value="0" min="0"></progress>
             <input class="seek" id="seek" value="0" min="0" type="range" step="1">
             <div class="seek_tooltip" id="seek_tooltip">00:00</div>
@@ -107,7 +102,7 @@
                     <path d="M21 19.031v-14.063h-18v14.063h18zM23.016 18.984q0 0.797-0.609 1.406t-1.406 0.609h-18q-0.797 0-1.406-0.609t-0.609-1.406v-14.016q0-0.797 0.609-1.383t1.406-0.586h18q0.797 0 1.406 0.586t0.609 1.383v14.016zM18.984 11.016v6h-7.969v-6h7.969z"></path>
                 </symbol>
             </defs>
-        </svg>
+        </svg> -->
 
         <!-- <form method="post">
             {% if is_playing %}
