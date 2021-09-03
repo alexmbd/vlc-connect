@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from .ytVLC import VLCPlayer, get_url_info
 
-views = Blueprint("views", __name__)
+views = Blueprint("views", __name__, static_folder="static", static_url_path="/vlcconnect/static")
 
 vlc_player = VLCPlayer()
 
@@ -35,7 +35,7 @@ def home():
     else:
         return render_template("home.html", media_sources=media_sources, qualities=qualities, playlist=playlist)
 
-@views.route("/<query>", methods=["GET", "POST"])
+@views.route("/results/<query>", methods=["GET", "POST"])
 def results(query: str):
     return render_template("results.html", media_sources=media_sources)
 
