@@ -20,7 +20,7 @@ class YoutubeVideo:
 
     @staticmethod
     def values() -> List[str]:
-        return [value for value in dir(YoutubeVideo) if not value.startswith("_")]
+        return [value for value in YoutubeVideo.__annotations__]
 
 class YoutubeSearch:
     """Create a YoutubeSearch object that handles search queries and search pagination"""

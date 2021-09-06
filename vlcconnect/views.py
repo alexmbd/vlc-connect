@@ -1,9 +1,10 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from .ytVLC import VLCPlayer, get_url_info
+from .ytVLC import VLCPlayer, YoutubeSearch, get_url_info
 
 views = Blueprint("views", __name__, static_folder="static", static_url_path="/vlcconnect/static")
 
 vlc_player = VLCPlayer()
+youtube_search = YoutubeSearch()
 
 media_sources = ["YouTube", "Local"]
 qualities = ["144", "240", "360", "480", "720", "1080"]
@@ -37,7 +38,8 @@ def home():
 
 @views.route("/results/<query>", methods=["GET", "POST"])
 def results(query: str):
-    return render_template("results.html", media_sources=media_sources)
+    youtube_results = youtube_search.search(query)
+    return render_template("results.html", media_sources=media_sources, youtube_results=youtube_results)
 
 
 def media_handler(url: str, quality: str) -> None:

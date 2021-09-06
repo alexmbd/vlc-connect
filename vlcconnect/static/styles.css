@@ -159,7 +159,7 @@ hr {
 .img_title {
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
+  margin: 10px;
 }
 
 .content_button {
@@ -170,6 +170,10 @@ hr {
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
+  width: 360px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .img_title img {
