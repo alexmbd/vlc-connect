@@ -1,3 +1,5 @@
+import ast
+
 from flask import Blueprint, render_template, request, redirect, url_for
 from .ytVLC import VLCPlayer, YoutubeSearch, get_url_info
 
@@ -38,8 +40,15 @@ def home():
 
 @views.route("/results/<query>", methods=["GET", "POST"])
 def results(query: str):
+    if request.form.get("to_home") == "home":
+        return redirect(url_for("views.home"))
+
     youtube_results = youtube_search.search(query)
-    return render_template("results.html", media_sources=media_sources, youtube_results=youtube_results)
+    selected_video = request.form.get("selected_video")
+    if selected_video is not None:
+        selected_video = ast.literal_eval(selected_video)
+    
+    return render_template("results.html", media_sources=media_sources, youtube_results=youtube_results, selected_video=selected_video)
 
 
 def media_handler(url: str, quality: str) -> None:

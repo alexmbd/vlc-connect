@@ -41,21 +41,39 @@
             <div class="results_label">
                 <h1>Results</h1>
             </div>
-            <div class="main_content">
+            <form method="post" class="main_content">
                 {% for item in youtube_results %}
                     <div class="img_title">
-                        <button type="submit" name="playlist_button" value="{{item['link']}}" class="content_button">
+                        <button type="submit" name="selected_video" value="{{item}}" class="content_button">
                             <img src="{{item['thumbnails'][0]['url']}}" width="360" height="200">
                         </button>
-                        <button type="submit" name="playlist_button" value="{{item['link']}}" class="content_button">
+                        <button type="submit" name="selected_video" value="{{item}}" class="content_button">
                             {{item["title"]}}
                         </button>
                     </div>
                 {% endfor %}
-            </div>
+            </form>
         </div>
     </div>
-    <div class="page_footer">
+    <div class="control_bar">
+        <div class="current_video_content">
+            <div>
+                {% if selected_video %}
+                    <img src="{{selected_video['thumbnails'][0]['url']}}" width="160" height="89">
+                {% else %}
+                    <img src="{{youtube_results[0]['thumbnails'][0]['url']}}" width="160" height="89">
+                {% endif %}
+            </div>
+            <div class="current_video_title">
+                {% if selected_video %}
+                    <h1 title="{{selected_video['title']}}">{{selected_video["title"]}}</h1>
+                    <h2 title="{{selected_video['channel']['name']}}">{{selected_video["channel"]["name"]}}</h2>
+                {% else %}
+                    <h1 title="{{youtube_results[0]['title']}}">{{youtube_results[0]["title"]}}</h1>
+                    <h2 title="{{youtube_results[0]['channel']['name']}}">{{youtube_results[0]["channel"]["name"]}}</h2>
+                {% endif %}
+            </div>
+        </div>
         <!-- <div class="video_progress">
             <progress id="progress_bar" value="0" min="0"></progress>
             <input class="seek" id="seek" value="0" min="0" type="range" step="1">
@@ -94,7 +112,7 @@
 
         <svg style="display: none">
             <defs>
-                <symbol id="pause" viewBox="0 0 24 24">
+                <symbol id="pause_icon" viewBox="0 0 24 24">
                     <path d="M14.016 5.016h3.984v13.969h-3.984v-13.969zM6 18.984v-13.969h3.984v13.969h-3.984z"></path>
                 </symbol>
         
