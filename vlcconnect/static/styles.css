@@ -5,6 +5,8 @@
   --controls_icon: #7e7e7e;
   --line_separator: #626262;
   --text: #f7f7f7;
+  --background_seek_tooltip: rgba(0, 0, 0, 0.6);
+  --youtube_red: #fe0900;
 }
 
 html, body, .page {
@@ -190,7 +192,7 @@ hr {
   flex: 0 0 auto;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   background-color: var(--background_controls);
   width: 99vw;
   padding-top: 10px;
@@ -236,6 +238,106 @@ hr {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.video_controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.video_progress {
+  position: relative;
+  width: 50vw;
+  height: 8.4px;
+  margin-bottom: 10px;
+}
+
+.video_progress progress {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 2px;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 8.4px;
+  top: 0;
+}
+
+.video_progress progress::-webkit-progress-bar {
+  border-radius: 2px;
+  background-color: var(--controls_icon);
+}
+
+.video_progress progress::-webkit-progress-value {
+  border-radius: 2px;
+  background-color: var(--youtube_red);
+}
+
+.video_progress progress::-moz-progress-bar {
+  border: 1px solid var(--youtube_red);
+  background-color: var(--youtube_red);
+}
+
+.seek {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  margin: 0;
+}
+
+.seek:hover+.seek_tooltip {
+  display: block;
+}
+
+.seek_tooltip {
+  display: none;
+  position: absolute;
+  content: attr(data-title);
+  color: var(--text);
+  background-color: var(--background_seek_tooltip);
+  font-weight: bold;
+  font-size: 12px;
+  top: -30px;
+  margin-left: -10px;
+  padding: 3px;
+}
+
+.video_progress input[type=range] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  cursor: pointer;
+  height: 8.4px;
+}
+
+.video_progress input[type=range]:focus {
+  outline: none;
+}
+
+.video_progress input[type=range]::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  cursor: pointer;
+  border-radius: 1.3px;
+  width: 100%;
+  transition: all 0.4s ease;
+}
+
+.video_progress input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  cursor: pointer;
+  border-radius: 16px;
+  width: 16px;
+  height: 16px;
+  background: var(--youtube_red);
+  margin-left: -1px;
+}
+
+.video_progress input[type=range]:focus::-webkit-slider-runnable-track {
+  background: transparent;
 }
 
 
