@@ -1,7 +1,44 @@
-from typing import Tuple, Dict
+from typing import Tuple, Dict, List, Union
+from dataclasses import dataclass
 
 import vlc
 import youtube_dl
+import youtubesearchpython as ysp
+
+@dataclass
+class YouTubeVideo:
+    title: str
+    publishedTime: str
+    duration: str
+    viewCount: Dict[str, str]
+    thumbnails: List[Dict[str, Union[str, int]]]
+    richThumbnail: Dict[str, Union[str, int]]
+    channel: Dict[str, str]
+    link: str
+
+    @staticmethod
+    def values() -> List[str]:
+        return [value for value in dir(YouTubeVideo) if not value.startswith("_")]
+
+class YoutubeSearch:
+    def __init__(self) -> None:
+        self._current_page_results = None
+
+    def search(self, query: Union[str, None]) -> List[YouTubeVideo]:
+        if query is not None:
+            self._current_page_results = ysp.VideosSearch(query)
+        list_results = self._current_page_results.result()["result"]
+        return self._filter_response_info(YouTubeVideo.values(), list_results)
+
+    def next_page(self) -> List[YouTubeVideo]:
+        self._current_page_results.next()
+        self.search()
+
+    def _filter_response_info(
+            self, 
+            accepted_values: List[str], 
+            lst: List[Dict[str, Union[str, Dict, List, None]]]) -> List[YouTubeVideo]:
+        return [{key: dic[key] for key in dic if key in accepted_values} for dic in lst]
 
 class VLCPlayer:
     """Create a VLC Player object"""
@@ -15,7 +52,7 @@ class VLCPlayer:
     def add_to_playlist(self, media_key: str, media_info: Dict[str, str]) -> None:
         self.vlc_playlist[media_key] = media_info
 
-    def play_selected_media(self, media_key: str=None) -> None:
+    def play(self, media_key: Union[str, None]=None) -> None:
         if media_key:
             if self.has_media():
                 self.stop()
