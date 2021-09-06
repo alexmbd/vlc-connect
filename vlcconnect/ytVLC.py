@@ -6,7 +6,9 @@ import youtube_dl
 import youtubesearchpython as ysp
 
 @dataclass
-class YouTubeVideo:
+class YoutubeVideo:
+    """A custom YoutubeVideo type for type hinting"""
+
     title: str
     publishedTime: str
     duration: str
@@ -18,26 +20,28 @@ class YouTubeVideo:
 
     @staticmethod
     def values() -> List[str]:
-        return [value for value in dir(YouTubeVideo) if not value.startswith("_")]
+        return [value for value in dir(YoutubeVideo) if not value.startswith("_")]
 
 class YoutubeSearch:
+    """Create a YoutubeSearch object that handles search queries and search pagination"""
+
     def __init__(self) -> None:
         self._current_page_results = None
 
-    def search(self, query: Union[str, None]) -> List[YouTubeVideo]:
+    def search(self, query: Union[str, None]) -> List[YoutubeVideo]:
         if query is not None:
             self._current_page_results = ysp.VideosSearch(query)
         list_results = self._current_page_results.result()["result"]
-        return self._filter_response_info(YouTubeVideo.values(), list_results)
+        return self._filter_response_info(YoutubeVideo.values(), list_results)
 
-    def next_page(self) -> List[YouTubeVideo]:
+    def next_page(self) -> List[YoutubeVideo]:
         self._current_page_results.next()
         self.search()
 
     def _filter_response_info(
             self, 
             accepted_values: List[str], 
-            lst: List[Dict[str, Union[str, Dict, List, None]]]) -> List[YouTubeVideo]:
+            lst: List[Dict[str, Union[str, Dict, List, None]]]) -> List[YoutubeVideo]:
         return [{key: dic[key] for key in dic if key in accepted_values} for dic in lst]
 
 class VLCPlayer:
